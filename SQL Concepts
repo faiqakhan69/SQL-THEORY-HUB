@@ -1,0 +1,185 @@
+. SQL Basics
+
+What is SQL
+Language for managing and querying relational databases
+
+Databases & Tables 
+Organized collections of structured data
+
+2. SQL Data Types
+Integer (INT), Float (FLOAT)  Numeric values
+String (VARCHAR, TEXT)  Textual data
+Date & Time (DATE, TIMESTAMP)  Time-related values
+Boolean (BOOLEAN) True/False values
+3. SQL Commands (CRUD Operations)
+SELECT  Retrieve data
+INSERT  Add new records
+UPDATE  Modify existing data
+DELETE  Remove records
+
+Example:
+
+sql
+Copy
+Edit
+SELECT * FROM employees;
+INSERT INTO employees (id, name, salary) VALUES (1, 'John', 50000);
+UPDATE employees SET salary = 60000 WHERE id = 1;
+DELETE FROM employees WHERE id = 1;
+
+4. Filtering & Sorting
+WHERE Filter records based on conditions
+ORDER BY Sort results
+LIMIT  Restrict the number of rows returned
+
+Example:
+
+sql
+Copy
+Edit
+SELECT * FROM employees WHERE salary > 50000 ORDER BY salary DESC LIMIT 5;
+
+5. SQL Joins (Combining Tables)
+INNER JOIN  Returns matching records from both tables
+LEFT JOIN  Returns all records from the left table, plus matches from the right
+RIGHT JOIN  Returns all records from the right table, plus matches from the left
+FULL JOIN  Returns all records from both tables
+
+Example:
+
+sql
+Copy
+Edit
+SELECT employees.name, department.name
+FROM employees
+INNER JOIN department ON employees.department_id = department.id;
+
+6. SQL Constraints (Data Integrity)
+PRIMARY KEY Uniquely identifies each row
+FOREIGN KEY Establishes relationships between tables
+NOT NULL  Ensures a column cannot have NULL values
+UNIQUE  Prevents duplicate values
+CHECK Enforces conditions on column values
+DEFAULT  Sets a default value if none is provided
+
+Example:
+
+sql
+Copy
+Edit
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT CHECK (age > 18),
+    city VARCHAR(50) DEFAULT 'Unknown'
+);
+
+7. Aggregate Functions (Summarizing Data)
+COUNT()  Counts rows
+SUM()  Calculates total
+AVG()  Finds average
+MIN() & MAX()  Finds smallest & largest value
+
+Example:
+
+sql
+Copy
+Edit
+SELECT COUNT(*) FROM employees;
+SELECT AVG(salary) FROM employees;
+SELECT MIN(salary), MAX(salary) FROM employees;
+
+8. Grouping Data
+GROUP BY  Groups rows sharing the same value
+HAVING Filters grouped records
+
+Example:
+
+sql
+Copy
+Edit
+SELECT department_id, AVG(salary) 
+FROM employees 
+GROUP BY department_id 
+HAVING AVG(salary) > 50000;
+9. Subqueries (Nested Queries)
+A query inside another query
+Example:
+
+sql
+Copy
+Edit
+SELECT name FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+10. Views (Virtual Tables)
+A stored query that behaves like a table
+Example:
+
+sql
+Copy
+Edit
+CREATE VIEW high_salary_employees AS 
+SELECT name, salary FROM employees WHERE salary > 70000;
+11. SQL Transactions
+BEGIN TRANSACTION  Start
+COMMIT  Save changes
+ROLLBACK  Undo changes
+Example:
+
+sql
+Copy
+Edit
+BEGIN TRANSACTION;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+12. Indexing (Performance Optimization)
+INDEX  Speeds up searches
+UNIQUE INDEX  Prevents duplicate entries
+Example:
+
+sql
+Copy
+Edit
+CREATE INDEX idx_employee_name ON employees(name);
+13. SQL Stored Procedures
+A set of SQL statements stored for reuse
+
+Example:
+
+sql
+Copy
+Edit
+CREATE PROCEDURE GetEmployees()
+BEGIN
+    SELECT * FROM employees;
+END;
+CALL GetEmployees();
+
+14. SQL Triggers
+Automatic actions triggered by changes in data
+
+Example:
+
+sql
+Copy
+Edit
+CREATE TRIGGER update_salary
+BEFORE UPDATE ON employees
+FOR EACH ROW
+SET NEW.salary = NEW.salary * 1.1;
+
+15. SQL User Permissions & Security
+GRANT Assign privileges
+REVOKE  Remove privileges
+
+Example:
+
+sql
+Copy
+Edit
+GRANT SELECT, INSERT ON employees TO user1;
+REVOKE INSERT ON employees FROM user1;
+
+16. NoSQL vs SQL
+SQL (Relational Databases)  Structured, tables, predefined schema
+NoSQL (Non-Relational Databases) Flexible schema, document-based

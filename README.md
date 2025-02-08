@@ -1,2 +1,2 @@
 # SQL-THEORY-HUB
-Author -Faiqa Khan
+Author -Faiqa Khan..
